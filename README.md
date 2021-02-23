@@ -3,7 +3,7 @@ Members:
 Lefkarites, Christopher
 Smith, Miles
 Benton, William
-Nguygen, Tiffany
+Nguyen, Tiffany
 Vladimir Altov
 Edgar Matias
 Maryam Rahdaran
