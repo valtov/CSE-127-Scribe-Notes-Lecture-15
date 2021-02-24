@@ -8,16 +8,15 @@ Benton, William
 
 Nguyen, Tiffany
 
-Vladimir Altov
+Vladimir, Altov
 
-Edgar Matias
+Edgar, Matias
 
-Maryam Rahdaran
+Maryam, Rahdaran
 
-Owen Shen (No email yet)
+Owen, Shen (No email yet)
 
-Temesgen Teklemariam (No email yet)
-
+Temesgen, Teklemariam (No email yet)
 
 Goal:
 
