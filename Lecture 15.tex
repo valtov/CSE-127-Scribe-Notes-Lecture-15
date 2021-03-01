@@ -54,19 +54,62 @@
 %%% The "real" document content comes below...
 
 \title{Lecture 15}
-\author{TODO}
+\author{TLS and secure channels}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
 \begin{document}
 \maketitle
 
-\section{TODO}
+\section{Common Crytographic Network Protocols}
 
-TODO
+\subsection{TLS (Transport Layer Security)}
+\begin{itemize}
+  \item  Used to provide an encryption wrapper around HTTP to make HTTPS, and for
+  many other application layer protocols.
+  \item TLS is wrapped around the application layer.
+  \item Security goals: Authenticate server, confidentiality and integrity of
+  traffic. Ensure that client is connected to the server they think they are
+  connected to.
+  \item Originally called the Secure Socket Layer (SSL).
+\end{itemize}
 
-\subsection{TODO}
+\subsection{SSH (Secure Shell)}
+\begin{itemize}
+  \item Encrypted alternative to Telnet, Telnet uses an unencrypted connection
+  that sends information in plaintext, which is easily exploitable.
+  \item Security goals: Authenticate server and client, confidentiality and
+  integrity of traffic.
+\end{itemize}
 
-TODO
+\subsection{IPsec (Internet Protocol Security)}
+\begin{itemize}
+  \item Provides an encrypted, authenticated alternative to IP. Complicated set
+  of protocols which attempt to replace the IP layer.
+  \item Regular IP is insecure because anyone can view the payload of packets.
+  \item Tunnel IPSec through IP.
+  \item Commonly used for VPNs (Virtual Private Networks).
+  \item Security goals: client and server authentication, authenticate headers,
+  optionally encrypt headers, ensure confidentiality and integrity of payloads.
+\end{itemize}
+
+\section{Constructing a Secure Encrypted Channel}
+\subsection{Encrypt and MAC data}
+To construct a secure encrypted channel there are several steps of prelinary
+communication that the client and server must perform before the channel can be
+established.
+\begin{center}\includegraphics[scale=.8]{./tls1.png}\end{center}
+Alice[left] and Bob[right] want to communicate on a secure channel on that is
+protected against passive easedroppers and man-in-the-middle attacks. 
+
+Assuming Alice and Bob have shared a set of keys, Alice sends her AES ciphertext
+and the MAC of the ciphertext to Bob.  Bob can now check the MAC and decrypt the
+cipher text to get the original message.
+
+\subsection{Diffie-Hellman key exchange}
+In order to negotiate and share encrypted MAC keys, there must be a
+Diffie-Hellman key exchange.
+
+\begin{center}\includegraphics[scale=.8]{./tls2.png}\end{center}
 
 \end{document}
