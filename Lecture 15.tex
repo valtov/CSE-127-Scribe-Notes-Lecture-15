@@ -94,22 +94,53 @@
 \end{itemize}
 
 \section{Constructing a Secure Encrypted Channel}
-\subsection{Encrypt and MAC data}
 To construct a secure encrypted channel there are several steps of prelinary
 communication that the client and server must perform before the channel can be
 established.
-\begin{center}\includegraphics[scale=.8]{./tls1.png}\end{center}
-Alice[left] and Bob[right] want to communicate on a secure channel on that is
-protected against passive easedroppers and man-in-the-middle attacks. 
 
-Assuming Alice and Bob have shared a set of keys, Alice sends her AES ciphertext
-and the MAC of the ciphertext to Bob.  Bob can now check the MAC and decrypt the
-cipher text to get the original message.
+\subsection{Encrypt and MAC data}
 
+\includegraphics[scale=.7]{./tls1.png}
+
+{\parindent0pt Alice[left] and Bob[right] want to communicate on a secure 
+channel on that is protected against passive easedroppers and man-in-the-middle
+attacks.}
+
+\bigskip
+{\parindent0pt Assuming Alice and Bob have shared a set of keys, Alice sends her
+AES ciphertext and the MAC of the ciphertext to Bob.  Bob can now check the MAC
+and decrypt the cipher text to get the original message.}
+
+\newpage
 \subsection{Diffie-Hellman key exchange}
-In order to negotiate and share encrypted MAC keys, there must be a
+In order to negotiate charing encryption and MAC keys, there must be a
 Diffie-Hellman key exchange.
 
-\begin{center}\includegraphics[scale=.8]{./tls2.png}\end{center}
+\includegraphics[scale=.7]{./tls2.png}
+
+{\parindent0pt \textbf{NOTE:} In the image above $g^{a}$  should be read as 
+$g^{a}\ mod\ p$ and likewise $g^{b}$ should be read $g^{b}\ mod\ p$}
+
+\bigskip
+{\parindent0pt If a Diffie-Hellman key exchange has occurred then both Alice 
+and Bob will have a \textbf{shared secret}. In this case Alice and Bob's shared
+secret is $g^{ab}$.}
+
+\bigskip
+{\parindent0pt Using this shared secret Bob and Alice can use a Key Derivation
+Function (KDF), 
+\smallskip
+$k_e, k_m\ =\ KDF(g^{ab})$, which we can think of as a hash function that is 
+used to create encryption and MAC keys they can use for symmetric crypto.
+
+\newpage
+\subsection{Ensure Authenticity of Endpoints}
+There is a vulnerabiliy with this approach because if there is an active
+man-in-the-middle attack, they could man-in-the-middle attack the Diffie-Hellman
+key exchange.  To ensure the authenticity of the endpoint we must use
+\textbf{digital signatures}, to prevent man-in-the-middle interference of the
+key exchange.
+
+\includegraphics[scale=.7]{./tls3.png}
 
 \end{document}
