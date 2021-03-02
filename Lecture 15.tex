@@ -140,7 +140,46 @@ man-in-the-middle attack, they could man-in-the-middle attack the Diffie-Hellman
 key exchange.  To ensure the authenticity of the endpoint we must use
 \textbf{digital signatures}, to prevent man-in-the-middle interference of the
 key exchange.
+\smallskip
+You can either have one or both parties sign the key exchange with a long-term
+public key.
 
 \includegraphics[scale=.7]{./tls3.png}
+
+For the sake of example, assume that Alice is the client [web browser], Bob is 
+the web server, Alice knows the server's long-term key, and Alice is trying to
+communicate with Bob.
+
+\bigskip
+To protect the Diffie-Hellman key exchange Bob will sign the key exchange with 
+his long-term key.  Since Alice knows both Bob's original long term-key and the
+signature which Bob has given Alice can verify the signature by using Bob's
+public key before progressing with the encryption.
+
+\newpage
+\subsection{Trusting Signatures}
+While we may now be protected against man-in-the-middle attacks targeted towards
+the Diffie-Hellman key exchange, we have still not verified the integrity of
+Bob's public signing key which Alice has received.
+
+\includegraphics[scale=.7]{./tls4.png}
+
+The public signing key that Bob sends to Alice is susceptible to
+active man-in-the-middle attacks, so we must determine a way to trust the keys 
+the client receives.
+
+\bigskip
+Assuming that there was a man-in-the-middle who was overseeing all the
+communications between Alice and Bob, an attacker could substitute Bob's public
+key with their own generated public key and Alice would not be able to tell 
+the difference.
+
+\bigskip
+Due to the nature of this attack, we must have an \textbf{external} method of
+establishing trust in keys.
+
+\newpage
+\subsection{Establishing Trust in Keys}
+TODO
 
 \end{document}
