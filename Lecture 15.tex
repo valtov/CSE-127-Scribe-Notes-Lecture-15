@@ -271,11 +271,58 @@ the encrypted channel.
 \newpage
 \subsection{Certificates and Certificate Authorities in TLS}
 
+\newpage
+\begin{figure}
+    \centering
+    \textbf{Sample Certificate}
+    \includegraphics[scale=.4]{./cert1.png}
+    \caption{an example of a valid certificate from cse.ucsd.edu}
+    \begin{itemize}
+      \item  The certificate authority (CA) is InCommon RSA Server CA.
+      \item The domain name for which this certificate is meant is cse.ucsd.edu, with multiple DNS names listed
+      \item The public key uses RSA Encryption, with exponent 65537, N = 2048, and the public key and signature are both view able to the user.
+    \end{itemize}
+\end{figure}
+
+\newpage
+\includegraphics[scale=.5]{./cert2.png}
+This part of the certificate tells the user where to look for revocation information.
+
+
 \subsection{Revocation}
+It's possible for a key to be compromised, ie for an attacker to obtain a private key. This is clearly undesirable, as any private/encrypted messages sent to whomever owns this private key can now be read by the attacker, and/or the attacker can sign any messages he wants as if he were the original owner of the private key. In the case that a Certificate Authority key is compromised, a client may receive a perfectly valid certificate that was signed by an attacker, and there would be no way of knowing this certificate is invalid unless the CA announced that their public key is no longer valid.
 
-\subsection{Root CAs on OS X}
+\bigskip
+Therefore, there exists a revocation process for public keys. If Alice, for example, finds out that her private key has been compromised, she is able to announce or allow her senders to find out that her public key is no longer valid and they should not be using that public key to encrypt messages to her anymore. This verification must be signed by the private key, as you wouldn't want anyone else to arbitrarily cancel your key. Both CA and PGP PKIs support this. 
+\newpage
+\begin{figure}
+    \centering
+    \textbf{Compromised Certificate: Man in the Middle}
+    \includegraphics[scale=.4]{./cert3.png}
+    \caption{Man-in-the-middle attack using rogue certificate}
+    \begin{itemize}
+      \item The attacker has managed to obtain valid certificates from a CA trusted by the client.
+      \item This allows the attacker to intercept the data being sent from the bank, and send the client his own "certified trusted" public key as if he were the bank; the client will accept this, (since it has the valid certificate) encrypt her data using this malicious key, and send the data to the bank.
+      \item This gives the attacker free reign to proxy any and all traffic to and from the client and the bank, modifying any data as he pleases, as he can decrypt whatever the client was sending to the bank.
+      \item One could imagine the attacker modifying the client request to say something along the lines of "transfer all the money to the attacker account." 
+    \end{itemize}
+\end{figure}
 
-\subsection{Man-in-the-Middle Attack Using Rogue Cert}
+\subection {CA Hacks / Vulnerabilities}
+\paragraph{There is a long history of CAs getting hacked or certifying wrong things}
+ \begin{itemize}
+    \item 2011: Comodo + DigiNotar hacked to issue fraudulent certificates for Hotmail, Gmail, Skype, Yahoo Mail, Firefox
+    \item 2013: TurkTrust issued fraudulent certificate for Gmail
+    \item 2014: Indian NIC issue certs for Google and Yahoo!
+    \item 2016: WoSign issues cert for GitHub.
+\end{itemize}
+\paragraph{Mitigations}
+\subparagraph {Certificate pinning:} Limits risk by restricting which certificates are considered valid for a particular website. Instead of allowing any CA in the trusted list to sign a certificate, the browser pins the CA of choice; any certificates received that are not from this pinned CA are considered invalid. Therefore, attackers are unable to man in the middle even if they have a valid certificate from a trusted authority as long as the pinned authority doesn't match.
+\subparagraph {Certificate Transparency:} All certificates are publicly disclosed, providing greater insight and transparency. Certificate transparency has two main components, logs and monitors.
+ \begin{itemize}
+    \item Logs maintain records of all issued certificates to a domain. These logs are append only, and cannot be altered or deleted once a certificate has been added to the log (using something called a Merkle Tree to achieve this)
+    \item Monitors do just that, monitor the logs for anything they can be set to monitor. Some monitors can allow users to create and run queries for certificates, as google does. Some domains may be interested in receiving notifications for when a certificate is issued to their domain, or if it matches some query they are interested in monitoring.
+\end{itemize}
 
 \newpage
 \subsection{TLS 1.2 with RSA Key Exchange}
