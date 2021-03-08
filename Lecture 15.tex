@@ -203,43 +203,70 @@ Step 3 of TLS 1.2 with a Diffie-Hellman Key Exchange is the server sends over
 its certificate, which contains the server’s public RSA key and a certificate 
 authority's signatures.
 
-\includegraphics[scale=1]{./DiffieStep3.png}
+\includegraphics[scale=1.2]{./DiffieStep3.png}
 
 (Certificates are explained more in Section 3.3)
 
+\newpage
 \subsubsection{Step 4}
 Step 4 of TLS 1.2 with a Diffie-Hellman Key Exchange is the server starts the 
 key exchange.
 
-\includegraphics[scale=1]{./DiffieStep4.png}
+\includegraphics[scale=1.2]{./DiffieStep4.png}
 
  The server will sign its part of the key exchange, shown as 
  $Sign_{RSAkey}(p,g,g^a)$ in the image above. Since the message is signed by 
  the server's RSA key, which is signed by a certificate authority that Alice 
  trusts, it cannot be modified by a man-in-the-middle attacker.
 
+\newpage
 \subsubsection{Step 5}
-Step 5 of TLS 1.2 with a Diffie-Hellman Key Exchange is  
+Step 5 of TLS 1.2 with a Diffie-Hellman Key Exchange is Alice[client] does her 
+part of the key exchange. 
 
 \includegraphics[scale=1.2]{./DiffieStep5.png}
 
+This message is usually not authenticated since user authentication is not 
+commonly done at the cryptographic layer when using the web.
+
 \newpage
 \subsubsection{Step 6}
-Step 6 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
+Step 6 of TLS 1.2 with a Diffie-Hellman Key Exchange is for the client and 
+server to derive the symmetric encryption keys. This is done using a key 
+derivation function. \\
 
 \includegraphics[scale=1.2]{./DiffieStep6.png}
+\\
+
+$KDF$ in the image above stands for key derivation function.
+
+$k_{m_c}$, $k_{m_s}$, and $k_{e}$ are the symmetric keys.
 
 \newpage
 \subsubsection{Step 7}
-Step 7 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
+Step 7 of TLS 1.2 with a Diffie-Hellman Key Exchange is for the client and 
+server to makes sure that messages were not changed by a man-in-the-middle 
+attacker. \\
 
 \includegraphics[scale=1.2]{./DiffieStep7.png}
+\\
+
+They can verify the integrity of the handshake by each sending a MAC (Message 
+Authentication Code) of all of the messages they have sent so far using the 
+symmetric keys that they derived in the last step.
+
+They will then be sure that the protocol has not been changed.
 
 \newpage
 \subsubsection{Step 8}
-Step 8 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
+Step 8, the last step, of TLS 1.2 with a Diffie-Hellman Key Exchange is to 
+send symmetrically encrypted requests. \\
 
 \includegraphics[scale=1.2]{./DiffieStep8.png}
+\\
+
+For example, Alice[client] will make a HTTP GET request for index.html over 
+the encrypted channel.
 
 \newpage
 \subsection{Certificates and Certificate Authorities in TLS}
