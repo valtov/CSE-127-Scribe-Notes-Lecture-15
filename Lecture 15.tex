@@ -131,7 +131,7 @@ secret is $g^{ab}$.}
 Function (KDF), 
 \smallskip
 $k_e, k_m\ =\ KDF(g^{ab})$, which we can think of as a hash function that is 
-used to create encryption and MAC keys they can use for symmetric crypto.
+used to create encryption and MAC keys they can use for symmetric crypto.}
 
 \newpage
 \subsection{Ensure Authenticity of Endpoints}
@@ -191,44 +191,53 @@ TODO
 \subsection{TLS 1.2 with Diffie-Hellman Key Exchange}
 
 \subsubsection{Step 1}
+Step 1 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
 
 \newpage
 \subsubsection{Step 2}
+Step 2 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
 
 \newpage
 \subsubsection{Step 3}
-Step 3 of the Diffie-Hellman Key Exchange is the server sends over its certificate, which contains the server’s public RSA key and a certificate authority's signatures. Certificates are explained more in Section 3.3.
+Step 3 of TLS 1.2 with a Diffie-Hellman Key Exchange is the server sends over 
+its certificate, which contains the server’s public RSA key and a certificate 
+authority's signatures.
 
-\includegraphics[scale=1.2]{./DiffieStep3.png}
+\includegraphics[scale=1]{./DiffieStep3.png}
 
+(Certificates are explained more in Section 3.3)
 
-\newpage
 \subsubsection{Step 4}
-TODO
+Step 4 of TLS 1.2 with a Diffie-Hellman Key Exchange is the server starts the 
+key exchange.
 
-\includegraphics[scale=1.2]{./DiffieStep4.png}
+\includegraphics[scale=1]{./DiffieStep4.png}
 
-\newpage
+ The server will sign its part of the key exchange, shown as 
+ $Sign_{RSAkey}(p,g,g^a)$ in the image above. Since the message is signed by 
+ the server's RSA key, which is signed by a certificate authority that Alice 
+ trusts, it cannot be modified by a man-in-the-middle attacker.
+
 \subsubsection{Step 5}
-TODO
+Step 5 of TLS 1.2 with a Diffie-Hellman Key Exchange is  
 
 \includegraphics[scale=1.2]{./DiffieStep5.png}
 
 \newpage
 \subsubsection{Step 6}
-TODO
+Step 6 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
 
 \includegraphics[scale=1.2]{./DiffieStep6.png}
 
 \newpage
 \subsubsection{Step 7}
-TODO
+Step 7 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
 
 \includegraphics[scale=1.2]{./DiffieStep7.png}
 
 \newpage
 \subsubsection{Step 8}
-TODO
+Step 8 of TLS 1.2 with a Diffie-Hellman Key Exchange is 
 
 \includegraphics[scale=1.2]{./DiffieStep8.png}
 
