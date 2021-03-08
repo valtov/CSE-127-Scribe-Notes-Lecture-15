@@ -242,6 +242,10 @@ $KDF$ in the image above stands for key derivation function.
 
 $k_{m_c}$, $k_{m_s}$, and $k_{e}$ are the symmetric keys.
 
+$k_{m_c}$ is the client's MAC key and $k_{m_s}$ is the server's MAC key.
+
+$k_{e}$ is the encryption key.
+
 \newpage
 \subsubsection{Step 7}
 Step 7 of TLS 1.2 with a Diffie-Hellman Key Exchange is for the client and 
@@ -277,8 +281,33 @@ the encrypted channel.
 
 \subsection{Man-in-the-Middle Attack Using Rogue Cert}
 
+\newpage
 \subsection{TLS 1.2 with RSA Key Exchange}
+Another way to negotiate keys in TLS 1.2 is using RSA public key encryption to 
+share a secret master key.
 
+\begin{enumerate}
+  \item This starts with the Alice[client] sending a hello.
+  \item Then, the server will send over its certificate, which contains its 
+  public key.
+  \item Alice[client] will choose a random value, called a premaster secret, 
+  which she encrypts to the server's RSA public key and sends back to the 
+  server.
+  \item The server is the only one who can decrypt the value of the encrypted 
+  premaster secret.
+  \item The server and client will then use a key derivation function to 
+  derive their encryption and MAC keys.
+  \item The server and client will exchange MACs of the dialogue.
+  \item Finally, they will send encrypted requests using the symmetric 
+  encryption key.
+\end{enumerate}
+
+\includegraphics[scale=.6]{./TLS_RSA.png}
+
+The only difference from using the Diffie-Hellman key exchange is the client 
+instead encrypts a secret and sends it to the server.
+
+\newpage
 \subsection{How TLS Achieves Its Security Goals}
 
 \subsection{What If a Private Key Gets Stolen or Compromised?}
