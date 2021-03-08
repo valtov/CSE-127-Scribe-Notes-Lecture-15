@@ -201,18 +201,17 @@ Step 2 of TLS 1.2 with a Diffie-Hellman Key Exchange is
 \subsubsection{Step 3}
 Step 3 of TLS 1.2 with a Diffie-Hellman Key Exchange is the server sends over 
 its certificate, which contains the server’s public RSA key and a certificate 
-authority's signatures.
+authority's signatures.\\
 
-\includegraphics[scale=1.2]{./DiffieStep3.png}
+\includegraphics[scale=.8]{./DiffieStep3.png}
 
 (Certificates are explained more in Section 3.3)
 
-\newpage
 \subsubsection{Step 4}
 Step 4 of TLS 1.2 with a Diffie-Hellman Key Exchange is the server starts the 
-key exchange.
+key exchange.\\
 
-\includegraphics[scale=1.2]{./DiffieStep4.png}
+\includegraphics[scale=.8]{./DiffieStep4.png}
 
  The server will sign its part of the key exchange, shown as 
  $Sign_{RSAkey}(p,g,g^a)$ in the image above. Since the message is signed by 
@@ -222,29 +221,25 @@ key exchange.
 \newpage
 \subsubsection{Step 5}
 Step 5 of TLS 1.2 with a Diffie-Hellman Key Exchange is Alice[client] does her 
-part of the key exchange. 
+part of the key exchange. \\
 
-\includegraphics[scale=1.2]{./DiffieStep5.png}
+\includegraphics[scale=.8]{./DiffieStep5.png}
 
 This message is usually not authenticated since user authentication is not 
 commonly done at the cryptographic layer when using the web.
 
-\newpage
 \subsubsection{Step 6}
 Step 6 of TLS 1.2 with a Diffie-Hellman Key Exchange is for the client and 
 server to derive the symmetric encryption keys. This is done using a key 
 derivation function. \\
 
-\includegraphics[scale=1.2]{./DiffieStep6.png}
-\\
+\includegraphics[scale=.8]{./DiffieStep6.png}
 
 $KDF$ in the image above stands for key derivation function.
 
 $k_{m_c}$, $k_{m_s}$, and $k_{e}$ are the symmetric keys.
 
-$k_{m_c}$ is the client's MAC key and $k_{m_s}$ is the server's MAC key.
-
-$k_{e}$ is the encryption key.
+$k_{m_c}$ is the client's MAC key. $k_{m_s}$ is the server's MAC key. $k_{e}$ is the encryption key.
 
 \newpage
 \subsubsection{Step 7}
